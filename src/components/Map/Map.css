@@ -1,0 +1,207 @@
+.map-screen {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 104px); /* Подстраиваем под высоту хедера */
+  background-color: #f5f7fa;
+  overflow: hidden;
+}
+
+/* Окно информации */
+.info-box {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 300px;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  z-index: 5;
+  border-left: 6px solid #eca406;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Анимация появления */
+.animate-slide {
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Адаптивность карты */
+@media (max-width: 768px) {
+  .info-box {
+    width: 90%;
+    left: 5%;
+    top: auto;
+    bottom: 100px;
+  }
+}
+/* Стиль для точек-маркеров */
+circle {
+  cursor: pointer;
+  transition: r 0.2s ease, fill 0.2s ease;
+}
+
+circle:hover {
+  r: 6px;
+  fill: #eca406;
+}
+
+/* Чтобы текст названий городов не выделялся при клике */
+text {
+  user-select: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
+}
+
+.full-address {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+  margin-bottom: 15px;
+}
+
+.additional-info {
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  font-size: 13px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #ccc;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Инфо-панель в верхнем левом углу */
+.info-panel {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  z-index: 1000;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 260px;
+}
+
+.info-panel.mini { height: auto; padding: 15px; }
+.info-panel.expanded { width: 350px; padding: 20px; max-height: 80vh; overflow-y: auto; }
+
+.type-badge {
+  font-size: 10px;
+  background: #f0f0f0;
+  padding: 3px 8px;
+  border-radius: 20px;
+  color: #666;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.info-panel h2 { margin: 10px 0; font-size: 20px; color: #1a1a1a; }
+
+.explore-btn {
+  width: 100%;
+  padding: 10px;
+  background: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+  transition: all 0.2s;
+}
+
+.explore-btn:hover { background: #357abd; }
+
+.details-area {
+  margin-top: 15px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #444;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.close-panel {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #aaa;
+}
+
+/* Кнопки масштаба в нижнем правом углу */
+.zoom-bar {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 1000;
+}
+
+.zoom-bar button {
+  width: 45px;
+  height: 45px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.zoom-bar button:hover { background: #f9f9f9; }
+
+.map-screen {
+    height: 80vh; /* По умолчанию */
+}
+
+@media (max-width: 768px) {
+    .map-screen {
+        height: 60vh; /* Меньше на мобильных, чтобы был виден инфо-блок */
+    }
+    
+    .info-panel {
+        left: 10px;
+        right: 10px;
+        width: auto !important; /* На весь экран по ширине */
+        top: auto;
+        bottom: 80px; /* Чтобы не перекрывало кнопки зума */
+    }
+}
