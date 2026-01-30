@@ -1,0 +1,97 @@
+.details-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.details-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.back-btn {
+    background: none;
+    border: 1px solid #eca406;
+    color: #eca406;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: #eca406;
+    color: white;
+}
+
+.details-header h1 {
+    font-size: 42px;
+    margin: 10px 0;
+    color: #333;
+}
+
+.full-location {
+    color: #777;
+    font-size: 16px;
+}
+
+/* Сетка карточек */
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.info-card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-top: 4px solid #4A90E2;
+}
+
+.info-card.highlight {
+    border-top-color: #eca406;
+}
+
+.info-card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.info-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.info-card li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.info-card li span {
+    color: #666;
+}
+
+.info-card li strong {
+    color: #1a1a1a;
+}
+
+/* --- АДАПТИВНОСТЬ --- */
+
+@media (max-width: 768px) {
+    .details-header h1 { font-size: 32px; }
+    .details-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+    .details-header h1 { font-size: 28px; }
+    .info-card { padding: 20px; }
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import { ComposableMap, Geographies, Geography, ZoomableGroup, Marker } from "react-simple-maps";
+import { useNavigate } from "react-router-dom";
 import './Map.css'
 
 const geoUrl = "https://raw.githubusercontent.com/lotusms/world-map-data/main/world.json";
@@ -10,6 +11,7 @@ function MapPage() {
   const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
   const [info, setInfo] = useState(null); // Данные о месте
   const [isExpanded, setIsExpanded] = useState(false); // Развернуто ли окно
+  const navigate = useNavigate();
 
   // Синхронизация с поиском из Хедера
   useEffect(() => {
@@ -73,7 +75,7 @@ function MapPage() {
             <h2>{info.name}</h2>
             
             {!isExpanded ? (
-              <button className="explore-btn" onClick={() => setIsExpanded(true)}>
+              <button className="explore-btn" onClick={() => navigate('/details', { state: { info } })}>
                 Исследовать {info.type === "city" ? "место" : "страну"}
               </button>
             ) : (

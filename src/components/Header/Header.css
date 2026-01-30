@@ -81,6 +81,24 @@ nav a {
     color: white;
 }
 
+.vocab{
+    background-color: #f4f4f4;
+    height: 37px;
+    width: 100px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.vocab button{
+    padding: 7px 9px;
+    border: none;
+    border-radius: 4px;
+    background-color: #eca406;
+    color: white;
+    cursor: pointer;
+}
+
 /* --- АДАПТИВНОСТЬ (Медиа-запросы) --- */
 
 /* Ноутбуки и средние экраны */
@@ -133,7 +151,7 @@ nav a {
         font-size: 14px;
     }
     
-    .lng { padding: 4px; }
+    .vocab { padding: 4px; }
 }
 
 /* Маленькие телефоны (iPhone SE и т.д.) */

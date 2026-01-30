@@ -29,11 +29,8 @@ function Header({ searchQuery, setSearchQuery, handleSearch }) {
           <button className='submit' type="submit">Найти</button>
         </form>
         
-        <div className='lng'>
-          <select>
-            <option>KGZ</option>
-            <option>RUS</option>
-          </select>
+        <div className='vocab'>
+          <button>Справочник</button>
         </div>
       </div>
       </div>
