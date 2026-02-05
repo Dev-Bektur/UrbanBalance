@@ -113,7 +113,7 @@ function MapPage() {
         <div><span className="dot green"></span> Низкая</div>
       </div>
 
-      <ComposableMap projectionConfig={{ scale: 145 }} style={{ width: "100%", height: "100%" }}>
+      <ComposableMap projectionConfig={{ scale: 145 }} style={{ width: "100%", height: "100%", cursor: "grab" }}>
         <ZoomableGroup zoom={position.zoom} center={position.coordinates} onMoveEnd={setPosition}>
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
