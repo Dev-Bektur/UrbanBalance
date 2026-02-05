@@ -14,7 +14,7 @@ function Header({ searchQuery, setSearchQuery, handleSearch }) {
       
       <nav>
         <Link to="/">Карта</Link>
-        <Link to="/faq">Вопрос-ответ</Link>
+        <Link to="/faqPage">Вопрос-ответ</Link>
         <Link to="/profile">Личный кабинет</Link>
       </nav>
 

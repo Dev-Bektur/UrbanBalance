@@ -15,7 +15,7 @@ const myRouter = createBrowserRouter([
                 element: <Main/>
             },
             {
-                path: "faq",
+                path: "faqPage",
                 element: <Faq/>
             },
             {
