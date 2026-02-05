@@ -1,0 +1,71 @@
+.dict-wrapper {
+  padding: 20px;
+  background-color: #fff;
+  min-height: 80vh;
+}
+
+.dict-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.dict-container h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.dict-search {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box; /* Чтобы padding не раздувал ширину */
+}
+
+/* Таблица */
+.dict-table {
+  width: 100%;
+  border-collapse: collapse; /* Убирает двойные границы */
+  margin-top: 10px;
+}
+
+.dict-table th, .dict-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.dict-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  color: #555;
+}
+
+.dict-table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.term-name {
+  font-weight: bold;
+  color: #eca406; /* Твой фирменный цвет */
+  width: 30%; /* Ограничиваем ширину левой колонки */
+}
+
+/* --- Адаптивность --- */
+@media (max-width: 600px) {
+  .dict-table th, .dict-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  .term-name {
+    width: 40%;
+  }
+
+  .dict-container h1 {
+    font-size: 20px;
+  }
+}

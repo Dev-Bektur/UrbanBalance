@@ -192,6 +192,55 @@ text {
     height: 80vh; /* По умолчанию */
 }
 
+/* Легенда цветов */
+.map-legend {
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+  background: white;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  z-index: 1000;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.map-legend div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot.red { background: #ff4d4d; }
+.dot.yellow { background: #ffcc00; }
+.dot.green { background: #66bb6a; }
+
+/* Улучшение анимации инфо-панели */
+.animate-slide {
+  animation: slideInLeft 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Эффект при наведении на кнопки */
+.explore-btn:active {
+  transform: scale(0.98);
+}
+
 @media (max-width: 768px) {
     .map-screen {
         height: 60vh; /* Меньше на мобильных, чтобы был виден инфо-блок */

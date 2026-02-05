@@ -4,6 +4,7 @@ import Main from "./pages/Main";
 import Faq from "./pages/Faq";
 import Profile from "./pages/Profile";
 import DetailsPage from "./pages/DetailsPage";
+import Dictionary from "./pages/Dictionary";
 
 const myRouter = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ const myRouter = createBrowserRouter([
             {
                 path: "details",
                 element: <DetailsPage/>
+            },
+            {
+                path: "vocab",
+                element: <Dictionary/>
             }
         ]
     }

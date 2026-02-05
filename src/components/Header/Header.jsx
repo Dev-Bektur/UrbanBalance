@@ -30,7 +30,7 @@ function Header({ searchQuery, setSearchQuery, handleSearch }) {
         </form>
         
         <div className='vocab'>
-          <button>Справочник</button>
+          <Link to="vocab"><button>Справочник</button></Link>
         </div>
       </div>
       </div>
