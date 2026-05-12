@@ -12,68 +12,64 @@ function MapPage() {
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
 
-  // Имитация данных об урбанизации (в реальном проекте можно заменить на JSON или API)
   const getUrbanizationStyle = (geoName) => {
-    // Просто для примера: распределяем цвета по длине названия или первой букве
-    // В будущем здесь будет проверка по базе данных
-    const hash = geoName.length % 3;
-    if (hash === 0) return "#ff4d4d"; // Высокая (Красный)
-    if (hash === 1) return "#ffcc00"; // Средняя (Желтый)
-    return "#66bb6a"; // Низкая (Зеленый)
+    const hash = geoName ? geoName.length % 3 : 0;
+    if (hash === 0) return "#ff4d4d"; 
+    if (hash === 1) return "#ffcc00"; 
+    return "#66bb6a"; 
   };
 
+  // Синхронизация: когда searchResult меняется (поиск или клик), обновляем инфо и камеру
   useEffect(() => {
     if (searchResult) {
       setPosition({
         coordinates: searchResult.coordinates,
-        zoom: searchResult.type === "city" ? 8 : 2.5
+        zoom: searchResult.type === "city" ? 8 : 3
       });
       setInfo(searchResult);
       setIsExpanded(false);
     }
   }, [searchResult]);
 
-  const getPlaceDetails = async (lon, lat) => {
+  // Функция получения данных при клике (Обратный геокодинг на РУССКОМ)
+  const handleMapClick = async (lon, lat) => {
     try {
       const response = await fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lon=${lon}&lat=${lat}&addressdetails=1&accept-language=ru`
       );
       const data = await response.json();
+      
       if (data && data.address) {
         const addr = data.address;
-        const isCity = addr.city || addr.town || addr.village || addr.hamlet;
-        
-        // Находим название страны для корректной подсветки
-        const countryName = addr.country;
+        const city = addr.city || addr.town || addr.village || addr.hamlet || addr.state;
+        const country = addr.country;
 
         const newPlace = {
-          name: isCity || countryName || "Место без названия",
+          name: city || country || "Неизвестное место",
           fullName: data.display_name,
           coordinates: [lon, lat],
-          type: isCity ? "city" : "country",
-          country: countryName,
+          type: (addr.city || addr.town || addr.village) ? "city" : "country",
+          country: country,
           details: addr
         };
         
+        // Это обновит всё приложение и откроет панель
         setSearchResult(newPlace);
-        setInfo(newPlace);
-        setIsExpanded(false);
       }
     } catch (e) {
-      console.error("Ошибка геокодинга", e);
+      console.error("Ошибка геокодинга:", e);
     }
   };
 
-  const handleZoomIn = () => setPosition(p => ({ ...p, zoom: p.zoom * 1.5 }));
-  const handleZoomOut = () => setPosition(p => ({ ...p, zoom: p.zoom / 1.5 }));
-
-  // Проверка: является ли текущая страна выбранной (через поиск или клик)
   const isSelected = (geo) => {
     if (!searchResult) return false;
     const geoName = geo.properties.name || geo.properties.NAME;
+    const geoNameRU = geo.properties.name_ru; // Если в json есть ру-названия
+    
     return (
       geoName?.toLowerCase() === searchResult.country?.toLowerCase() ||
-      geoName?.toLowerCase() === searchResult.name?.toLowerCase()
+      geoName?.toLowerCase() === searchResult.name?.toLowerCase() ||
+      geoNameRU?.toLowerCase() === searchResult.name?.toLowerCase()
     );
   };
 
@@ -83,17 +79,15 @@ function MapPage() {
         <div className={`info-panel animate-slide ${isExpanded ? "expanded" : "mini"}`}>
           <button className="close-panel" onClick={() => {setInfo(null); setSearchResult(null);}}>×</button>
           <div className="info-content">
-            <span className="type-badge">{info.type === "city" ? "🏙 Город" : "🌍 Страна"}</span>
+            <span className="type-badge">{info.type === "city" ? "🏙 Место" : "🌍 Страна"}</span>
             <h2>{info.name}</h2>
             {!isExpanded ? (
               <button className="explore-btn" onClick={() => navigate('/details', { state: { info } })}>
-                Исследовать {info.type === "city" ? "место" : "страну"}
+                Исследовать
               </button>
             ) : (
               <div className="details-area">
-                <p><strong>Полный адрес:</strong> {info.fullName}</p>
-                {info.details.state && <p><strong>Регион:</strong> {info.details.state}</p>}
-                <p><strong>Координаты:</strong> {info.coordinates[1].toFixed(4)}, {info.coordinates[0].toFixed(4)}</p>
+                <p><strong>Адрес:</strong> {info.fullName}</p>
                 <button className="explore-btn" onClick={() => setIsExpanded(false)}>Свернуть</button>
               </div>
             )}
@@ -102,19 +96,28 @@ function MapPage() {
       )}
 
       <div className="zoom-bar">
-        <button onClick={handleZoomIn}>+</button>
-        <button onClick={handleZoomOut}>-</button>
+        <button onClick={() => setPosition(p => ({ ...p, zoom: Math.min(p.zoom * 1.5, 12) }))}>+</button>
+        <button onClick={() => setPosition(p => ({ ...p, zoom: Math.max(p.zoom / 1.5, 1) }))}>-</button>
       </div>
 
-      {/* Легенда цветов */}
       <div className="map-legend">
-        <div><span className="dot red"></span> Высокая урбанизация</div>
+        <div><span className="dot red"></span> Высокая</div>
         <div><span className="dot yellow"></span> Средняя</div>
         <div><span className="dot green"></span> Низкая</div>
       </div>
 
-      <ComposableMap projectionConfig={{ scale: 145 }} style={{ width: "100%", height: "100%", cursor: "grab" }}>
-        <ZoomableGroup zoom={position.zoom} center={position.coordinates} onMoveEnd={setPosition}>
+      <ComposableMap 
+        projectionConfig={{ scale: 145 }} 
+        style={{ width: "100%", height: "100%", background: "#f5f7fa" }}
+      >
+        <ZoomableGroup 
+          zoom={position.zoom} 
+          center={position.coordinates} 
+          onMoveEnd={setPosition}
+          minZoom={1}
+          maxZoom={12}
+          translateExtent={[[-20, -20], [820, 620]]}
+        >
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map((geo) => {
@@ -127,13 +130,14 @@ function MapPage() {
                     key={geo.rsmKey}
                     geography={geo}
                     onClick={(e) => {
-                      const { lng, lat } = e;
-                      getPlaceDetails(lng, lat);
+                      // Получаем координаты клика из события
+                      const { lng, lat } = e; 
+                      handleMapClick(lng, lat);
                     }}
                     style={{
                       default: { 
-                        fill: active ? "#4A90E2" : urbColor, // Если выбрана — синяя, иначе по уровню урбанизации
-                        fillOpacity: active ? 1 : 0.6,
+                        fill: active ? "#4A90E2" : urbColor,
+                        fillOpacity: active ? 1 : 0.7,
                         outline: "none", 
                         stroke: "#fff", 
                         strokeWidth: 0.5 
@@ -147,9 +151,9 @@ function MapPage() {
             }
           </Geographies>
 
-          {searchResult && searchResult.type === "city" && (
+          {searchResult && (
             <Marker coordinates={searchResult.coordinates}>
-              <circle r={6 / (position.zoom / 2)} fill="#ef4444" stroke="#fff" strokeWidth={2} />
+              <circle r={5 / (position.zoom / 1.5)} fill="#ef4444" stroke="#fff" strokeWidth={2} />
             </Marker>
           )}
         </ZoomableGroup>
