@@ -16,6 +16,7 @@ function Header({ searchQuery, setSearchQuery, handleSearch }) {
         <Link to="/">Карта</Link>
         <Link to="/faqPage">Вопрос-ответ</Link>
         <Link to="/profile">Личный кабинет</Link>
+        <Link to="/chat">Чат</Link>
       </nav>
 
       <div className='header-right'>

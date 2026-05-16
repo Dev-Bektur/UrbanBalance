@@ -1,17 +1,443 @@
-.profilePage{
-    width: 1440px;
+/* Обертка */
+.profile-wrapper, .auth-wrapper {
+    background-color: #f5f7fa;
+    min-height: calc(100vh - 104px);
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+/* ФОРМЫ АВТОРИЗАЦИИ */
+.auth-wrapper {
+    align-items: center;
+}
+
+.auth-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.auth-card h2 {
+    margin-bottom: 25px;
+    color: #1a202c;
+}
+
+.auth-card input, .auth-card select {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.auth-card input:focus, .auth-card select:focus {
+    border-color: #eca406;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #eca406;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.auth-btn:hover { opacity: 0.9; }
+
+.auth-toggle {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #718096;
+}
+
+.auth-toggle span {
+    color: #4A90E2;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* ЛИЧНЫЙ КАБИНЕТ */
+.profile-container {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    gap: 30px;
+}
+
+/* Левая колонка (Сайдбар) */
+.profile-sidebar {
+    flex: 1;
+    max-width: 300px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 30px 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.user-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #edf2f7;
+}
+
+/* Загрузчик аватарки */
+.avatar-upload {
+    position: relative;
+    display: block;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.avatar-upload img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    font-size: 11px;
+    padding: 6px 0;
+}
+
+.user-title {
+    margin: 15px 0 5px 0;
+    font-size: 22px;
+    color: #1a202c;
+}
+
+.user-badge {
+    font-size: 13px;
+    background: #f0f4f8;
+    color: #4A90E2;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.sidebar-actions {
+    width: 100%;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar-actions button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+}
+
+.edit-btn { background: #2d3748; color: white; }
+.logout-btn { background: #f7fafc; color: #e53e3e; border: 1px solid #fed7d7 !important; }
+.save-btn { background: #66bb6a; color: white; }
+.cancel-btn { background: #e2e8f0; color: #4a5568; }
+
+/* Правая колонка (Основная информация) */
+.profile-main {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-section {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.info-section h3 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    color: #2d3748;
+    border-bottom: 2px solid #f7fafc;
+    padding-bottom: 8px;
+}
+
+.info-grid label {
+    font-size: 13px;
+    color: #a0aec0;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.info-grid p {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1a202c;
+    margin: 0;
+}
+
+.info-grid input, .bio-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 15px;
+    outline: none;
+}
+
+.info-grid input:focus, .bio-textarea:focus { border-color: #eca406; }
+
+.bio-text {
+    line-height: 1.6;
+    color: #4a5568;
+    margin: 0;
+}
+
+/* Блоки статистики */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.stat-card {
+    background: #f7fafc;
+    border-radius: 12px;
+    padding: 20px 15px;
+    text-align: center;
+    border: 1px solid #edf2f7;
+}
+
+.stat-num {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    color: #2d3748;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #718096;
+}
+
+/* --- АДАПТИВНОСТЬ --- */
+@media (max-width: 850px) {
+    .profile-container {
+        flex-direction: column;
+    }
+    
+    .profile-sidebar {
+        max-width: 100%;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Динамические цвета для статуса */
+.status-active { color: #66bb6a !important; }
+.status-low { color: #ffcc00 !important; }
+.status-inactive { color: #a0aec0 !important; }
+
+/* ВКЛАДКИ И ФОРМЫ ЛК */
+.workspace-section {
+    padding-top: 15px !important;
+}
+
+.tab-headers {
+    display: flex;
+    gap: 10px;
+    border-bottom: 2px solid #edf2f7;
+    margin-bottom: 20px;
+}
+
+.tab-link {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #718096;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.tab-link:hover {
+    color: #2d3748;
+}
+
+.tab-link.active {
+    color: #eca406;
+}
+
+.tab-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #eca406;
+}
+
+/* Форма добавления контента */
+.workspace-form {
+    background: #f7fafc;
     padding: 20px;
-    margin: 20px auto;
+    border-radius: 12px;
+    border: 1px solid #edf2f7;
+    margin-bottom: 25px;
+}
+
+.workspace-form h4 {
+    margin: 0 0 15px 0;
+    color: #2d3748;
+    font-size: 16px;
+}
+
+.workspace-form input, .workspace-form select, .workspace-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.workspace-form input:focus, .workspace-form select:focus, .workspace-form textarea:focus {
+    border-color: #eca406;
+}
+
+.action-submit-btn {
+    padding: 10px 20px;
+    background-color: #eca406;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    transition: opacity 0.2s;
+}
+
+.action-submit-btn.btn-point {
+    background-color: #2d3748;
+}
+
+.action-submit-btn:hover {
+    opacity: 0.9;
+}
+
+/* Карточки вывода созданных элементов */
+.items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.workspace-item-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.01);
+}
+
+.item-card-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    margin-bottom: 8px;
 }
-.profileLeft div{
+
+.workspace-item-card h5 {
+    margin: 0;
+    font-size: 16px;
+    color: #1a202c;
     display: flex;
     align-items: center;
-    gap: 10px;
-    line-height: 35px;
+    gap: 8px;
 }
-.profileLeft div p{
-    font-size: 20px;
+
+.item-badge {
+    font-size: 11px;
+    background: #eef2f6;
+    color: #4A90E2;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
 }
+
+.item-badge.red-badge {
+    background: #fff5f5;
+    color: #e53e3e;
+}
+
+.item-date {
+    font-size: 12px;
+    color: #a0aec0;
+}
+
+.workspace-item-card p {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    color: #4a5568;
+    line-height: 1.5;
+}
+
+/* Кнопочки управления элементами */
+.item-card-footer {
+    display: flex;
+    gap: 15px;
+    border-top: 1px dashed #edf2f7;
+    padding-top: 10px;
+}
+
+.btn-mini-edit, .btn-mini-delete {
+    background: none;
+    border: none;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+}
+
+.btn-mini-edit { color: #4A90E2; }
+.btn-mini-edit:hover { text-decoration: underline; }
+
+.btn-mini-delete { color: #e53e3e; }
+.btn-mini-delete:hover { text-decoration: underline; }
